@@ -9,8 +9,19 @@ import {
   InputLabel,
   InputAdornment 
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom'
 
 function Login({nome, setNome, saldo, setSaldo}) {
+  const history = useHistory() 
+
+  const nextPage = () => {
+    if(nome !== '' && saldo !== 0){
+      console.log('nome', nome)
+      console.log('saldo', saldo)
+      console.log('useHistory ', history)
+    }
+  }
+  
   return (
     <Container>
       <Titulo>
@@ -44,6 +55,7 @@ function Login({nome, setNome, saldo, setSaldo}) {
       <Button
         variant="contained"
         color="primary"
+        onClick={nextPage}
       >
         Avançar
       </Button>
