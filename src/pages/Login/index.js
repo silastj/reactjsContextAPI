@@ -12,22 +12,23 @@ import {
 import { useHistory } from 'react-router-dom'
 import { UsuarioContext } from 'common/context/Usuario'
 import { useContext } from 'react'
+import { Alert } from '@material-ui/lab';
+import { useState } from 'react';
 
 function Login() {
   const history = useHistory()
   const {nome, setNome, saldo, setSaldo} = useContext(UsuarioContext)
+  const [ alert, setAlert] = useState(false)
 
   const nextPage = () => {
     if (nome !== '' && saldo !== 0) {
-      console.log('nome', nome)
-      console.log('saldo', saldo)
+      setAlert(true)
       console.log('useHistory ', history)
     }
   }
 
   return (
     <Container>
-  
             <Titulo>
               Insira o seu nome
             </Titulo>
@@ -63,7 +64,9 @@ function Login() {
             >
               Avançar
             </Button>
-        
+            {alert &&
+              <Alert severity="success">O seu nome é: {nome}, com saldo total de R$ {saldo}. </Alert>
+            }
     </Container>
   )
 };
