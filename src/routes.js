@@ -8,17 +8,17 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <UsuarioProvider>
-            <Login/>
-          </UsuarioProvider>
-        </Route>
-        <Route exact path="/feira">
-          <Feira />
-        </Route>
-        <Route exact path="/carrinho">
-          <Carrinho />
-        </Route>
+        <UsuarioProvider>
+          <Route exact path="/">
+              <Login/>
+          </Route>
+          <Route exact path="/feira">
+            <Feira />
+          </Route>
+        </UsuarioProvider>
+          <Route exact path="/carrinho">
+            <Carrinho />
+          </Route>
       </Switch>
     </BrowserRouter>
   )

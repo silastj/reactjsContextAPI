@@ -23,7 +23,12 @@ function Login() {
   const nextPage = () => {
     if (nome !== '' && saldo !== 0) {
       setAlert(true)
-      console.log('useHistory ', history)
+      setTimeout(() => {
+        setAlert(false)
+      }, "1000")
+      setTimeout(() => {
+        history.push('/feira')
+      }, "2500")
     }
   }
 
