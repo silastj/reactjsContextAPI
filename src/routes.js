@@ -3,7 +3,7 @@ import Feira from "pages/Feira";
 import Login from "pages/Login";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { UsuarioProvider } from "common/context/Usuario";
-
+import { CarrinhoProvider } from "common/context/Carrinho";
 const Router = () => {
   return (
     <BrowserRouter>
@@ -12,9 +12,11 @@ const Router = () => {
           <Route exact path="/">
               <Login/>
           </Route>
-          <Route exact path="/feira">
-            <Feira />
-          </Route>
+          <CarrinhoProvider>
+            <Route exact path="/feira">
+              <Feira />
+            </Route>
+          </CarrinhoProvider>
         </UsuarioProvider>
           <Route exact path="/carrinho">
             <Carrinho />
