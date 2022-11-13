@@ -20,4 +20,12 @@ export const Container = styled(Card)`
       font-size: 16px;
     }
   }
+
+  div:last-child{
+    width:120px;
+  }
+
+  @media(max-width:375px){
+    flex-direction: column;
+  }
 `;

@@ -16,6 +16,13 @@ export const CarrinhoProvider = ({children}) => {
 export const useCarrinhoContext = () => {
   const {carrinho, setCarrinho } = useContext(CarrinhoContext)
 
+  function addOrRemove(id, quantidade){
+    return carrinho.map(itemDoCarrinho => {
+      if(itemDoCarrinho.id === id) itemDoCarrinho.quantidade += quantidade
+      return itemDoCarrinho
+    })
+  }
+
   function addProduct(newProduct) {
     const hasProduct = carrinho.some(itemCarrinho => itemCarrinho.id === newProduct.id)
     if(!hasProduct){
@@ -24,15 +31,26 @@ export const useCarrinhoContext = () => {
         [...carrinhoAnterior, newProduct]
       )
     }
+    setCarrinho(addOrRemove(newProduct.id, 1))    
+  }
 
-    setCarrinho(carrinhoAnterior => carrinhoAnterior.map(itemCarrinho => {
-      if(itemCarrinho.id === newProduct.id) itemCarrinho.quantidade += 1
-      return itemCarrinho
-    }))    
+  function removeProduct(id){
+    const product = carrinho.find(itemDoCarrinho => itemDoCarrinho.id === id)
+    if(product !== undefined){
+      const lastProduct = product.quantidade === 1
+      if(lastProduct) {
+        return setCarrinho(carrinhoAnterior => carrinhoAnterior.filter(itemDoCarrinho => itemDoCarrinho.id !== id))
+      }
+      if(product.quantidade >= 1){
+        console.log('silas ',product.quantidade)
+        setCarrinho(addOrRemove(id, -1))
+      }
+    }
   }
   return{
       carrinho,
       setCarrinho,
-      addProduct
+      addProduct,
+      removeProduct
   }
 }
