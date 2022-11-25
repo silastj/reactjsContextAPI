@@ -6,11 +6,13 @@ import Produto from 'components/Produto';
 import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
 import { useHistory } from 'react-router-dom';
 import { usePagamentoContext } from 'common/context/Pagamento';
+import { UsuarioContext } from 'common/context/Usuario';
 
 
 function Carrinho() {
+  const { saldo } = useContext(UsuarioContext);
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const {carrinho} = useCarrinhoContext()
+  const {carrinho, newTotalProducts} = useCarrinhoContext()
   const { formaPagamento, tiposPagamento, mudarFormaPagamento } = usePagamentoContext()
   const history = useHistory()
 
@@ -36,7 +38,7 @@ function Carrinho() {
            >
             {tiposPagamento.map(pagamento => (
               <MenuItem value={pagamento.id} key={pagamento.id}>
-                {pagamento.nome}
+                {pagamento.nome === '' ? 'Selecionar:' : pagamento.nome}
               </MenuItem>
             ))}
            </Select> 
@@ -45,11 +47,11 @@ function Carrinho() {
       <TotalContainer>
           <div>
             <h2>Total no Carrinho: </h2>
-            <span>R$ </span>
+            <span>R$ {newTotalProducts.toFixed(2)} </span>
           </div>
           <div>
             <h2> Saldo: </h2>
-            <span> R$ </span>
+            <span> R$ {saldo} </span>
           </div>
           <div>
             <h2> Saldo Total: </h2>
