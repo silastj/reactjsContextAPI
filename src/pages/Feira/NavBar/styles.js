@@ -5,4 +5,8 @@ export const Nav = styled.nav`
   justify-content: space-between;
   margin-bottom: 30px;
   padding: 20px;
+
+  svg{
+    cursor:pointer;
+  }
 `;

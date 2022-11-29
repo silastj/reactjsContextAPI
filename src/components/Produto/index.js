@@ -37,6 +37,7 @@ function Produto({
          {ProductUnitsCarrinho?.quantidade || 0}
           <IconButton 
             color="primary"
+            disabled=""
             onClick={() => {addProduct({nome, foto, id, valor})}}>
             <AddIcon/>
           </IconButton>

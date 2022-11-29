@@ -1,7 +1,7 @@
 import { Button, Snackbar, InputLabel, Select, MenuItem } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useCarrinhoContext } from 'common/context/Carrinho';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import Produto from 'components/Produto';
 import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
 import { useHistory } from 'react-router-dom';
@@ -10,11 +10,13 @@ import { UsuarioContext } from 'common/context/Usuario';
 
 
 function Carrinho() {
-  const { saldo } = useContext(UsuarioContext);
+  const { saldo = 0 } = useContext(UsuarioContext);
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const {carrinho, newTotalProducts} = useCarrinhoContext()
+  const {carrinho, newTotalProducts, addPurchase} = useCarrinhoContext()
   const { formaPagamento, tiposPagamento, mudarFormaPagamento } = usePagamentoContext()
   const history = useHistory()
+  const total = useMemo(() => saldo - newTotalProducts, [saldo, newTotalProducts])
+
 
   return (
     <Container>
@@ -38,7 +40,7 @@ function Carrinho() {
            >
             {tiposPagamento.map(pagamento => (
               <MenuItem value={pagamento.id} key={pagamento.id}>
-                {pagamento.nome === '' ? 'Selecionar:' : pagamento.nome}
+                {pagamento.nome}
               </MenuItem>
             ))}
            </Select> 
@@ -51,17 +53,19 @@ function Carrinho() {
           </div>
           <div>
             <h2> Saldo: </h2>
-            <span> R$ {saldo} </span>
+            <span> R$ {Number(saldo).toFixed(2)} </span>
           </div>
           <div>
             <h2> Saldo Total: </h2>
-            <span> R$ </span>
+            <span> R$ {total.toFixed(2)} </span>
           </div>
         </TotalContainer>
       <Button
         onClick={() => {
+          addPurchase()
           setOpenSnackbar(true);
         }}
+        disabled={total <= 0 || carrinho.length === 0}
         color="primary"
         variant="contained"
       >

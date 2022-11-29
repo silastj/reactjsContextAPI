@@ -15,10 +15,10 @@ const Router = () => {
               <Login/>
           </Route>
           <CarrinhoProvider>
-            <Route exact path="/feira">
-              <Feira />
-            </Route>
             <PagamentoProvider>
+              <Route exact path="/feira">
+                <Feira />
+              </Route>
               <Route exact path="/carrinho">
                 <Carrinho />
               </Route>

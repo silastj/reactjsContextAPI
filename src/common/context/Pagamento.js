@@ -5,10 +5,6 @@ PagamentoContext.displayName = 'Pagamento'
 
 export const PagamentoProvider = ({ children }) => {
   const tiposPagamento = [{
-    nome: '',
-    juros: 0,
-    id: 0
-    },{
     nome: 'Boleto',
     juros: 1,
     id: 1

@@ -12,7 +12,9 @@ export default function NavBar() {
 
   return (
     <Nav>
-      <Logo />
+      <Logo 
+        onClick={() => history.push('/')}
+      />
       <IconButton
         disabled={quantitiesProducts === 0}
         onClick={() => history.push('/carrinho')}
